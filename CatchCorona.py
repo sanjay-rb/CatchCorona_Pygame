@@ -28,8 +28,8 @@ myfont = pygame.font.SysFont('Comic Sans MS', 30)
 textsurface = myfont.render('Score : '+str(score), False, (0, 0, 0))
 
 # set images....
-corona_img = pygame.image.load(r"img\corona.png")
-doctor_img = pygame.image.load(r"img\doctor.png")
+corona_img = pygame.image.load("corona.png")
+doctor_img = pygame.image.load("doctor.png")
 
 # start the game clock for timer to auto refresh....
 clock = pygame.time.Clock()
@@ -74,7 +74,7 @@ while True: #Game loop....
 	'''Display the Score'''
 	textsurface = myfont.render('Score : '+str(score), False, (0, 0, 0))
 	screen.blit(textsurface,(0,0))
-	
+
 	# update level
 	if score > 10: level = 5
 	elif score > 20 : level = 10
