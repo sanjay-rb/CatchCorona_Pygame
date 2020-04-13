@@ -21,10 +21,15 @@ corona_y = random.randint(1, 300)
 
 # init the score....
 score = 0
+level = 1
 
 # setup the font to text....
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 textsurface = myfont.render('Score : '+str(score), False, (0, 0, 0))
+
+# set images....
+corona_img = pygame.image.load(r"img\corona.png")
+doctor_img = pygame.image.load(r"img\doctor.png")
 
 # start the game clock for timer to auto refresh....
 clock = pygame.time.Clock()
@@ -48,7 +53,7 @@ while True: #Game loop....
 			sys.exit()
 
 		# If Doctor kill the corona....
-		if doc_x in range(corona_x-50, corona_x+50) and doc_y in range(corona_y-50, corona_y+50):
+		if doc_x in range(corona_x-75, corona_x+75) and doc_y in range(corona_y-75, corona_y+75):
 			corona_x = random.randint(1, 500)
 			corona_y = random.randint(1, 300)
 			score += 1
@@ -63,12 +68,20 @@ while True: #Game loop....
 	# Refreshing the Screen for every timer....
 	screen.fill(screen_color)
 	'''Create the Corona'''
-	pygame.draw.rect(screen, (0, 0, 0), [corona_x, corona_y, 50, 50])
+	screen.blit(pygame.transform.scale(corona_img, (50, 50)), (corona_x, corona_y))
 	'''Create the Doctor'''
-	pygame.draw.rect(screen, (255, 255, 255), [doc_x, doc_y, 50, 50])
+	screen.blit(pygame.transform.scale(doctor_img, (50, 50)), (doc_x, doc_y))
 	'''Display the Score'''
 	textsurface = myfont.render('Score : '+str(score), False, (0, 0, 0))
 	screen.blit(textsurface,(0,0))
+	
+	# update level
+	if score > 10: level = 5
+	elif score > 20 : level = 10
+	elif score > 30 : level = 15
+	elif score > 40 : level = 20
+	elif score > 50 : level = 25
+
 	'''Update the screen'''
 	pygame.display.update()
-	clock.tick(50+score*5)
+	clock.tick(50+score*level)
